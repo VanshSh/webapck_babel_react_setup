@@ -1,6 +1,9 @@
 {
+  // Array of Babel presets to use
   "presets": [
+    // Transpile modern JavaScript (ES6+) down to ES5 for compatibility
     "@babel/preset-env",
+    // Enable JSX and React transformations; use the new JSX transform (no need to import React in every file)
     ["@babel/preset-react", { "runtime": "automatic" }]
   ]
 }
