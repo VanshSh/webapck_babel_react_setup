@@ -1,6 +1,7 @@
-import React from 'react'
-import TodoItem from './TodoItem'
+import React, { Suspense } from 'react'
+// import TodoItem from './TodoItem'
 
+const TodoItem = React.lazy(() => import('./TodoItem'))
 const TodoList = React.memo(function TodoList({
   todos,
   onEdit,
@@ -11,15 +12,17 @@ const TodoList = React.memo(function TodoList({
     return <div className='alert alert-info mt-3'>No todos yet.</div>
   }
   return (
-    <ul className='list-group'>
+    <ul className='list-groups'>
       {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          onToggle={onToggle}
-        />
+        <Suspense key={todo.id} fallback={<div>Loading...</div>}>
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          />
+        </Suspense>
       ))}
     </ul>
   )
