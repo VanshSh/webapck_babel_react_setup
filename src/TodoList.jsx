@@ -12,7 +12,7 @@ const TodoList = React.memo(function TodoList({
     return <div className='alert alert-info mt-3'>No todos yet.</div>
   }
   return (
-    <ul className='list-groups'>
+    <ul className='p-0'>
       {todos.map((todo) => (
         <Suspense key={todo.id} fallback={<div>Loading...</div>}>
           <TodoItem

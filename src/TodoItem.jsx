@@ -7,7 +7,7 @@ const TodoItem = React.memo(function TodoItem({
   onToggle,
 }) {
   return (
-    <li className='list-group-item d-flex justify-content-between align-items-center'>
+    <li className='list-group-item d-flex justify-content-between align-items-center mb-2 border rounded p-2'>
       <span
         style={{
           textDecoration: todo.completed ? 'line-through' : 'none',
