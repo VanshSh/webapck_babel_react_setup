@@ -41,7 +41,7 @@ function ToDoApp() {
 
   return (
     <div className='container mt-5' style={stylinObj.container}>
-      <h2 className='text-center mb-4'>Todo App</h2>
+      <h2 className='text-center mb-4'>Todo List App.</h2>
       <TodoInput
         input={input}
         onChange={handleChange}

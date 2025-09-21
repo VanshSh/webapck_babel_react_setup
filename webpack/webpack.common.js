@@ -23,43 +23,13 @@ import { PurgeCSSPlugin } from 'purgecss-webpack-plugin'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// // Export the Webpack configuration object
-// export default {
-
-//   // Resolve these extensions automatically when importing modules
-//   resolve: {
-//     extensions: ['.js', '.jsx'],
-//   },
-
-//   // Configuration for the development server
-//   devServer: {
-//     // Serve static files from the 'public' directory
-//     static: {
-//       directory: path.join(__dirname, 'public'),
-//     },
-//     // Enable gzip compression for everything served
-//     compress: true,
-//     // Run the dev server on port 3000
-//     port: 3000,
-//     // Enable Hot Module Replacement for live reloading
-//     hot: true,
-//   },
-
-//   // Plugins to extend Webpack's functionality
-//   plugins: [
-//     // Generate an HTML file from the template and inject the bundle
-//     new HtmlWebpackPlugin({
-//       template: './public/index.html',
-//     }),
-//   ],
-// }
-
 export default {
   // Entry point: the main JS file that kicks off your app
   entry: './src/index.js',
   // Output configuration: where to put the bundled files
   output: {
-    filename: 'main.js',
+    clean: true, // Clean the output directory before each build
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, '../dist'),
   },
 
@@ -74,8 +44,12 @@ export default {
         use: ['babel-loader'],
       },
       {
-        test: /\.css$ /,
-        use: [MiniCssExtraPlugin.loader, 'css-loader'],
+        test: /\.(ts|tsx)$/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtraPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -85,7 +59,7 @@ export default {
 
   //   // Resolve these extensions automatically when importing modules
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.ts', '.js', '.jsx', '.tsx'],
   },
 
   plugins: [
