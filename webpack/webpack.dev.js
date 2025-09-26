@@ -10,4 +10,25 @@ export default merge(common, {
     port: 3000,
     static: ['./public'],
   },
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtraPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                exportLocalsConvention: 'camelCase',
+                localIdentName: '[path][name]__[local]',
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      },
+    ],
+  },
 })

@@ -16,8 +16,9 @@ import TerserPlugin from 'terser-webpack-plugin'
 // Import CssMinimizerPlugin to optimize and minimize CSS files
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
-// Import PurgeCSSPlugin to remove unused CSS (commented out as not used currently)
+// Import PurgeCSSPlugin to remove unused CSS
 import { PurgeCSSPlugin } from 'purgecss-webpack-plugin'
+import loader from 'sass-loader'
 
 // Create __filename and __dirname equivalents for ES modules
 const __filename = fileURLToPath(import.meta.url)
@@ -46,10 +47,6 @@ export default {
       {
         test: /\.(ts|tsx)$/,
         use: 'ts-loader',
-      },
-      {
-        test: /\.scss$/,
-        use: [MiniCssExtraPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -84,10 +81,11 @@ export default {
       filename: 'index.html',
     }),
     new MiniCssExtraPlugin({
-      filename: 'index.css',
+      filename: '[name].[contenthash].css',
     }),
-    new PurgeCSSPlugin({
-      paths: ['./public/index.html'],
-    }),
+    // CSS Modules inherently solve the problem of unused CSS styles by scoping the styles to specific components or modules. This scoping ensures that only the CSS styles required for a particular component are included in the final bundle, eliminating the need for additional tools like PurgeCSS
+    // new PurgeCSSPlugin({
+    //   paths: ['./public/index.html'],
+    // }),
   ],
 }
