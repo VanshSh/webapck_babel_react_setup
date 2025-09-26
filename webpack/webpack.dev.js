@@ -3,6 +3,7 @@ import common from './webpack.common.js'
 
 export default merge(common, {
   mode: 'development',
+  devtool: 'eval-source-map', //In the webpack configuration, the devtool property is used to specify the type of source map to generate. The value set for devtool determines the level of detail and the file format of the generated source map. Webpack recommends eval-source-map for development builds so that is what we are going to use
 
   devServer: {
     hot: true,
