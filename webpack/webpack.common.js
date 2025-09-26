@@ -37,6 +37,20 @@ export default {
   module: {
     rules: [
       {
+        // This rule handles image assets (png, svg, jpg, jpeg, gif):
+        // - test: Matches all image files with the listed extensions.
+        // - type: 'asset/resource' tells Webpack to copy these files to the output directory and replace imports with the final URL.
+        // - generator: Customizes the output filename:
+        //     - Images are saved in the 'asset/' folder inside the output directory.
+        //     - [name] is the original file name.
+        //     - [contenthash] is a unique hash based on the file's content, ensuring cache busting (users get the latest image if it changes).
+        //     - [ext] is the file extension.
+        // This setup keeps images organized, prevents caching issues, and makes it easy to reference images in your code.
+        generator: { filename: 'asset/[name].[contenthash][ext]' },
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        type: 'asset/resource',
+      },
+      {
         // Apply this rule to .js and .jsx files
         test: /\.(js|jsx)$/,
         // Exclude files in node_modules from being processed
